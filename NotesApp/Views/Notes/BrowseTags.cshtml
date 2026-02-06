@@ -1,0 +1,35 @@
+﻿@model IEnumerable<NotesApp.Models.Tag>
+
+@{
+    if (User.IsInRole("Administrator"))
+    {
+        ViewData["Title"] = "Browse All Tags";
+        <h2>Browse Tags</h2>
+    }
+    else
+    {
+        ViewData["Title"] = "Browse All Tags";
+        <h2>Browse Tags</h2>
+    }
+}
+
+
+
+@if (!Model.Any())
+{
+    <p>No tags yet. Create a note with tags to get started.</p>
+}
+else
+{
+    <div class="d-flex flex-wrap gap-2">
+        @foreach (var tag in Model)
+        {
+            <a asp-controller="Notes"
+               asp-action="ByTag"
+               asp-route-tag="@tag.Name"
+               class="badge bg-primary text-decoration-none p-2">
+                @tag.Name
+            </a>
+        }
+    </div>
+}

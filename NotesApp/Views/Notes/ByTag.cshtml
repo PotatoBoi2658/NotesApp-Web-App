@@ -1,0 +1,40 @@
+﻿@model IEnumerable<NotesApp.Models.Note>
+
+@{
+    ViewData["Title"] = "Notes tagged with '" + ViewBag.Tag + "'";
+}
+
+<h2>Notes tagged with “@ViewBag.Tag”</h2>
+
+@if (!Model.Any())
+{
+    <p>No notes found for this tag.</p>
+}
+else
+{
+    <ul class="list-group">
+        @foreach (var note in Model)
+        {
+            <li class="list-group-item">
+                <h5>@note.Title</h5>
+                <p>@note.Content</p>
+
+                <small>
+                    Tags:
+                    @foreach (var nt in note.NoteTags)
+                    {
+                        <a asp-controller="Notes"
+                           asp-action="ByTag"
+                           asp-route-tag="@nt.Tag.Name"
+                           class="badge bg-secondary text-decoration-none">
+                            @nt.Tag.Name
+                        </a>
+                    }
+                </small>
+            </li>
+        }
+    </ul>
+}
+
+<a asp-action="Index" class="btn btn-link mt-3">Back to all notes</a>
+

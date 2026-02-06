@@ -12,8 +12,8 @@ using NotesApp.Data;
 namespace NotesApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260204172401_initial")]
-    partial class initial
+    [Migration("20260205071352_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
