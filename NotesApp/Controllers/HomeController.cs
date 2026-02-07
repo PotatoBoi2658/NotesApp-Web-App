@@ -1,6 +1,6 @@
-using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using NotesApp.Models;
+using System.Diagnostics;
 
 namespace NotesApp.Controllers
 {

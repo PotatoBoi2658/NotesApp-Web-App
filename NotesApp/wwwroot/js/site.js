@@ -2,3 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+// basic theme toggle using CSS custom properties
+// basic theme toggle using CSS custom properties
+

@@ -1,4 +1,5 @@
-/*html {
+/* OLD STYLE - can be replaced with a more modern, clean design using CSS variables and flexbox for layout. 
+html {
   font-size: 14px;
 }
 
@@ -20,8 +21,9 @@ html {
 body {
   margin-bottom: 60px;
 }*/
-/* Layout helpers to keep footer at bottom */
-/* Layout helpers to keep footer at bottom */
+
+/*Layout helpers to keep footer at bottom */
+
 html, body {
     height: 100%;
 }
@@ -30,8 +32,8 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: var(--bg);
-    color: #222;
+    background: #ffffff; /* default white view */
+    color: #222222;
     font-family: "Segoe UI", Roboto, Arial, sans-serif;
 }
 
@@ -39,50 +41,27 @@ main[role="main"] {
     flex: 1 0 auto;
 }
 
-/* Theme variables */
+/* Brand colors kept simple for default look */
 :root{
-  --brand: #2b6cb0;        /* primary color */
-  --brand-contrast: #ffffff;
+  --brand: #2b6cb0;
   --accent: #f6ad55;
-  --bg: #f4f7fb;
-  --text-color: #222222;
   --muted: #6c757d;
   --card-bg: #ffffff;
-  --footer-bg: #ffffff;
-  --footer-text: var(--muted);
-  --nav-link-color: rgba(255,255,255,0.92);
 }
 
-/* Layout helpers to keep footer at bottom */
-html, body {
-  height: 100%;
+/* Navbar - default bootstrap white look */
+.navbar {
+  background: #ffffff;
 }
-body{
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--text-color);
-  font-family: "Segoe UI", Roboto, Arial, sans-serif;
-}
-main[role="main"] {
-  flex: 1 0 auto;
-}
-
-/* Navbar */
-.navbar.custom-theme{
-  background: linear-gradient(90deg, #2089a3, #1e3a8a);
-  box-shadow: 0 2px 6px rgba(15,23,42,0.08);
-}
-.navbar.custom-theme .navbar-brand{
-  color: #ffffff !important;
+.navbar .navbar-brand{
+  color: var(--brand);
   font-weight: 700;
 }
-.navbar.custom-theme .nav-link{
-  color: rgba(255,255,255,0.95) !important;
+.navbar .nav-link{
+  color: #212529; /* bootstrap text-dark */
 }
-.navbar.custom-theme .nav-link:hover{
-  color: rgba(255,255,255,1) !important;
+.navbar .nav-link:hover{
+  color: var(--brand);
 }
 
 /* Buttons */
@@ -114,18 +93,16 @@ a:hover{
 
 /* Footer */
 footer.footer{
-  background: var(--footer-bg);
+  background: #ffffff;
   padding: 1rem 0;
-  color: var(--footer-text);
+  color: var(--muted);
   border-top: 1px solid rgba(15,23,42,0.06);
 }
 
 /* Small helpers */
 .text-muted-custom{ color: var(--muted); }
 
-
-
 /* Responsive tweaks */
 @media (max-width: 576px){
-  .navbar.custom-theme .nav-link { color: var(--brand-contrast) !important; }
+  .navbar .nav-link { color: #212529; }
 }
