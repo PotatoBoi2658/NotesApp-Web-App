@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Options;
 using NotesApp.Models;
+using NotesApp.Services;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -18,63 +20,71 @@ namespace NotesApp.Areas.Identity.Pages.Account
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IEmailSender _emailSender;
+        private readonly SmtpOptions _smtpOptions;
 
-        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender)
+        public ForgotPasswordModel(UserManager<ApplicationUser> userManager, IEmailSender emailSender, IOptions<SmtpOptions> smtpOptions)
         {
             _userManager = userManager;
             _emailSender = emailSender;
+            _smtpOptions = smtpOptions?.Value ?? new SmtpOptions();
         }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         [BindProperty]
         public InputModel Input { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
         public class InputModel
         {
-            /// <summary>
-            ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-            ///     directly from your code. This API may change or be removed in future releases.
-            /// </summary>
             [Required]
             [EmailAddress]
             public string Email { get; set; }
         }
 
+        // Expose a friendly message to the page (optional)
+        [TempData]
+        public string StatusMessage { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                var user = await _userManager.FindByEmailAsync(Input.Email);
-                if (user == null) //removed check to make email sending work
-                {
-                    // Don't reveal that the user does not exist
-                    return RedirectToPage("./ForgotPasswordConfirmation");
-                }
-
-                var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-                var callbackUrl = Url.Page(
-                    "/Account/ResetPassword",
-                    pageHandler: null,
-                    values: new { area = "Identity", code },
-                    protocol: Request.Scheme);
-
-                await _emailSender.SendEmailAsync(
-                    Input.Email,
-                    "Reset Password",
-                    $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
-
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return Page();
             }
 
-            return Page();
+            // If SMTP is not configured, show helpful message instead of silently failing.
+            if (string.IsNullOrWhiteSpace(_smtpOptions.Host)
+                || string.IsNullOrWhiteSpace(_smtpOptions.SenderEmail)
+                || string.IsNullOrWhiteSpace(_smtpOptions.Username)
+                || string.IsNullOrWhiteSpace(_smtpOptions.Password))
+            {
+                ModelState.AddModelError(string.Empty, "Email sending is not configured for this site. Contact the administrator or set SMTP credentials to enable password reset emails.");
+                return Page();
+            }
+
+            var user = await _userManager.FindByEmailAsync(Input.Email);
+            if (user == null)
+            {
+                // Inform the user the email wasn't found.
+                // NOTE: revealing account existence is a security decision — you requested explicit feedback.
+                ModelState.AddModelError(string.Empty, "No account with that email address was found.");
+                return Page();
+            }
+
+            // Generate reset token and send the email as before
+            var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+            code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
+            var callbackUrl = Url.Page(
+                "/Account/ResetPassword",
+                pageHandler: null,
+                values: new { area = "Identity", code },
+                protocol: Request.Scheme);
+
+            await _emailSender.SendEmailAsync(
+                Input.Email,
+                "Reset Password",
+                $"Please reset your password by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
+
+            StatusMessage = "If the email exists, a password reset link has been sent. Check your inbox.";
+            return RedirectToPage("./ForgotPasswordConfirmation");
         }
     }
 }
