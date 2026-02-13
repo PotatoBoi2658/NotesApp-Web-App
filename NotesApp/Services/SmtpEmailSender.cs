@@ -7,7 +7,7 @@ using MailKit.Security;
 using MimeKit;
 using Microsoft.Extensions.Logging;
 
-//send email using SMTP with MailKit, configured via SmtpOptions from appsettings.json
+// send email using SMTP with MailKit, configured via SmtpOptions
 namespace NotesApp.Services
 {
     public class SmtpEmailSender : IEmailSender
@@ -23,11 +23,20 @@ namespace NotesApp.Services
 
         public async Task SendEmailAsync(string email, string subject, string htmlMessage)
         {
+            // If SMTP is not configured (no credentials or no sender), skip sending silently.
+            if (string.IsNullOrWhiteSpace(_options.Host)
+                || string.IsNullOrWhiteSpace(_options.SenderEmail)
+                || string.IsNullOrWhiteSpace(_options.Username)
+                || string.IsNullOrWhiteSpace(_options.Password))
+            {
+                _logger.LogInformation("SMTP not configured or credentials missing; skipping email to {Recipient}.", email);
+                return;
+            }
+
             try
             {
                 var message = new MimeMessage();
-                var fromEmail = string.IsNullOrWhiteSpace(_options.SenderEmail) ? _options.Username : _options.SenderEmail;
-                message.From.Add(new MailboxAddress(_options.SenderName ?? fromEmail, fromEmail));
+                message.From.Add(new MailboxAddress(_options.SenderName ?? _options.SenderEmail, _options.SenderEmail));
                 message.To.Add(MailboxAddress.Parse(email));
                 message.Subject = subject;
                 message.Body = new BodyBuilder { HtmlBody = htmlMessage }.ToMessageBody();
@@ -37,11 +46,8 @@ namespace NotesApp.Services
                 _logger.LogDebug("Connecting to SMTP {Host}:{Port} SSL={UseSsl}", _options.Host, _options.Port, _options.UseSsl);
                 await client.ConnectAsync(_options.Host, _options.Port, secure);
 
-                if (!string.IsNullOrEmpty(_options.Username))
-                {
-                    _logger.LogDebug("Authenticating SMTP as {Username}", _options.Username);
-                    await client.AuthenticateAsync(_options.Username, _options.Password ?? string.Empty);
-                }
+                _logger.LogDebug("Authenticating SMTP as {Username}", _options.Username);
+                await client.AuthenticateAsync(_options.Username, _options.Password ?? string.Empty);
 
                 await client.SendAsync(message);
                 await client.DisconnectAsync(true);
@@ -50,8 +56,8 @@ namespace NotesApp.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Failed sending email to {Recipient}", email);
-                throw;
+                // Log error but do not throw so the app continues to work without SMTP configured.
+                _logger.LogError(ex, "Failed to send email to {Recipient}; continuing without email.", email);
             }
         }
     }
