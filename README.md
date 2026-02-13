@@ -1,4 +1,4 @@
 # NotesApp
-Its a app that does notes.
-Its not very good at all.
-its very barebones and it bad.
+It's an app that does notes.
+It's not very good.
+it is bad.
