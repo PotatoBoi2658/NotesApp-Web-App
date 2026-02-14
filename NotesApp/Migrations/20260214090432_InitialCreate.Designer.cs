@@ -12,7 +12,7 @@ using NotesApp.Data;
 namespace NotesApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260205071352_InitialCreate")]
+    [Migration("20260214090432_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

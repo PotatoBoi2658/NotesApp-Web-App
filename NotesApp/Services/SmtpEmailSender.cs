@@ -6,8 +6,9 @@ using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using Microsoft.Extensions.Logging;
-
-// send email using SMTP with MailKit, configured via SmtpOptions
+/// <summary>
+/// send email using SMTP with MailKit, configured via SmtpOptions  
+/// <summary>
 namespace NotesApp.Services
 {
     public class SmtpEmailSender : IEmailSender

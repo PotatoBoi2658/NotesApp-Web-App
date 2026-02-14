@@ -9,24 +9,34 @@ using System.Security.Claims;
 
 
 namespace NotesApp.Controllers
-{
+{ /// <summary>
+  /// Controller for CRUD operations on notes.
+  /// </summary>
     [Authorize]
     public class NotesController : Controller
     {
         private readonly ApplicationDbContext _context;
-
+        
+        /// <summary>
+        /// Creates a new <see cref="NotesController"/>.
+        /// </summary>
+        /// <param name="context">The application database context.</param>
         public NotesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Notes
+        /// <summary>
+        /// GET: Lists notes for the current user or all notes for administrators.
+        /// </summary>
+        /// <returns>The index view with notes.</returns>
         public async Task<IActionResult> Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var isAdmin = User.IsInRole("Administrator");
 
             IQueryable<Note> notes = _context.Notes
+                .Include(n => n.User) // include the note owner so view can show username
                 .Include(n => n.NoteTags)
                     .ThenInclude(nt => nt.Tag);
 
@@ -39,7 +49,11 @@ namespace NotesApp.Controllers
         }
 
 
-        // GET: Notes/Details/5
+        /// <summary>
+        /// GET: Details for a single note.
+        /// </summary>
+        /// <param name="id">Note identifier.</param>
+        /// <returns>The details view or NotFound/Forbid as appropriate.</returns>
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -64,14 +78,20 @@ namespace NotesApp.Controllers
             return View(note);
         }
 
-        // GET: Notes/Create
+        /// <summary>
+        /// GET: Show create note form.
+        /// </summary>
+        /// <returns>Create view.</returns>
         public IActionResult Create()
         {
             return View(new CreateNoteViewModel());
         }
 
-
-        // POST: Notes/Create
+        /// <summary>
+        /// POST: Create a new note for the current user and attach tags.
+        /// </summary>
+        /// <param name="model">The create note view model.</param>
+        /// <returns>Redirects to Index on success, otherwise returns the view with validation errors.</returns>
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -130,10 +150,11 @@ namespace NotesApp.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-
-
-
-        // GET: Notes/Edit/5
+        /// <summary>
+        /// GET: Edit form for a note.
+        /// </summary>
+        /// <param name="id">Note identifier.</param>
+        /// <returns>Edit view or NotFound/Forbid as appropriate.</returns>
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -157,7 +178,11 @@ namespace NotesApp.Controllers
             return View(note);
         }
 
-        // POST: Notes/Edit/5
+        /// <summary>
+        /// POST: Apply edits to a note. Only title and content are updatable.
+        /// </summary>
+        /// <param name="input">Note input containing Id, Title and Content.</param>
+        /// <returns>Redirects to Index on success or NotFound/Forbid.</returns>
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -181,9 +206,6 @@ namespace NotesApp.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-
-
-
 
         // GET: Notes/Delete/5
         public async Task<IActionResult> Delete(int? id)

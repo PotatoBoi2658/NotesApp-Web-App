@@ -1,0 +1,316 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>NotesApp</name>
+    </assembly>
+    <members>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.Manage.IndexModel.Username">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.Manage.IndexModel.StatusMessage">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.Manage.IndexModel.Input">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Areas.Identity.Pages.Account.Manage.IndexModel.InputModel">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.Manage.IndexModel.InputModel.FullName">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.Input">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.ReturnUrl">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.ExternalLogins">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Areas.Identity.Pages.Account.RegisterModel.InputModel">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.InputModel.Email">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.InputModel.Password">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.RegisterModel.InputModel.ConfirmPassword">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.Input">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel.Email">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel.Password">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel.ConfirmPassword">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Areas.Identity.Pages.Account.ResetPasswordModel.InputModel.Code">
+            <summary>
+                This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+                directly from your code. This API may change or be removed in future releases.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Controllers.NotesController">
+            <summary>
+            Controller for CRUD operations on notes.
+            </summary>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.#ctor(NotesApp.Data.ApplicationDbContext)">
+            <summary>
+            Creates a new <see cref="T:NotesApp.Controllers.NotesController"/>.
+            </summary>
+            <param name="context">The application database context.</param>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Index">
+            <summary>
+            GET: Lists notes for the current user or all notes for administrators.
+            </summary>
+            <returns>The index view with notes.</returns>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Details(System.Nullable{System.Int32})">
+            <summary>
+            GET: Details for a single note.
+            </summary>
+            <param name="id">Note identifier.</param>
+            <returns>The details view or NotFound/Forbid as appropriate.</returns>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Create">
+            <summary>
+            GET: Show create note form.
+            </summary>
+            <returns>Create view.</returns>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Create(NotesApp.Models.ViewModels.CreateNoteViewModel)">
+            <summary>
+            POST: Create a new note for the current user and attach tags.
+            </summary>
+            <param name="model">The create note view model.</param>
+            <returns>Redirects to Index on success, otherwise returns the view with validation errors.</returns>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Edit(System.Nullable{System.Int32})">
+            <summary>
+            GET: Edit form for a note.
+            </summary>
+            <param name="id">Note identifier.</param>
+            <returns>Edit view or NotFound/Forbid as appropriate.</returns>
+        </member>
+        <member name="M:NotesApp.Controllers.NotesController.Edit(NotesApp.Models.Note)">
+            <summary>
+            POST: Apply edits to a note. Only title and content are updatable.
+            </summary>
+            <param name="input">Note input containing Id, Title and Content.</param>
+            <returns>Redirects to Index on success or NotFound/Forbid.</returns>
+        </member>
+        <member name="T:NotesApp.Data.ApplicationDbContext">
+            <summary>
+            EF Core DbContext for the NotesApp, includes Identity and application DbSets.
+            </summary>
+        </member>
+        <member name="M:NotesApp.Data.ApplicationDbContext.#ctor(Microsoft.EntityFrameworkCore.DbContextOptions{NotesApp.Data.ApplicationDbContext})">
+            <summary>
+            Initializes a new instance of <see cref="T:NotesApp.Data.ApplicationDbContext"/>.
+            </summary>
+            <param name="options">The options to be used by this DbContext.</param>
+        </member>
+        <member name="P:NotesApp.Data.ApplicationDbContext.Notes">
+            <summary>
+            Notes table.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Data.ApplicationDbContext.Tags">
+            <summary>
+            Tags table.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Data.ApplicationDbContext.NoteTags">
+            <summary>
+            Join table between notes and tags.
+            </summary>
+        </member>
+        <member name="M:NotesApp.Data.ApplicationDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            Configure model mappings and relationships.
+            </summary>
+            <param name="modelBuilder">The builder being used to construct the model.</param>
+        </member>
+        <member name="T:NotesApp.Migrations.InitialCreate">
+            <inheritdoc />
+        </member>
+        <member name="M:NotesApp.Migrations.InitialCreate.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:NotesApp.Migrations.InitialCreate.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:NotesApp.Migrations.InitialCreate.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:NotesApp.Models.Note">
+            <summary>
+            Represents a user-created note.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.Id">
+            <summary>
+            Primary key.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.Title">
+            <summary>
+            Note title. Required, max length 200.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.Content">
+            <summary>
+            Optional note body/content.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.CreatedAt">
+            <summary>
+            Creation timestamp (UTC).
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.UserId">
+            <summary>
+            Foreign key to the owning user.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.User">
+            <summary>
+            Navigation property to the owning <see cref="T:NotesApp.Models.ApplicationUser"/>.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Note.NoteTags">
+            <summary>
+            Many-to-many join entries connecting this note to tags.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Models.NoteTag">
+            <summary>
+            Join entity for the many-to-many relationship between <see cref="P:NotesApp.Models.NoteTag.Note"/> and <see cref="P:NotesApp.Models.NoteTag.Tag"/>.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.NoteTag.NoteId">
+            <summary>
+            Note primary key.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.NoteTag.Note">
+            <summary>
+            Navigation to the <see cref="P:NotesApp.Models.NoteTag.Note"/>.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.NoteTag.TagId">
+            <summary>
+            Tag primary key.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.NoteTag.Tag">
+            <summary>
+            Navigation to the <see cref="P:NotesApp.Models.NoteTag.Tag"/>.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Models.Tag">
+            <summary>
+            Represents a tag that can be attached to notes.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Tag.Id">
+            <summary>
+            Primary key.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Tag.Name">
+            <summary>
+            Tag name. Required, max length 50.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.Tag.NoteTags">
+            <summary>
+            Navigation property for notes associated with this tag.
+            </summary>
+        </member>
+        <member name="T:NotesApp.Models.ViewModels.CreateNoteViewModel">
+            <summary>
+            View model used to create a new note via the UI.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.ViewModels.CreateNoteViewModel.Title">
+            <summary>
+            Note title. Required and limited to 200 characters.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.ViewModels.CreateNoteViewModel.Content">
+            <summary>
+            Optional note content/body.
+            </summary>
+        </member>
+        <member name="P:NotesApp.Models.ViewModels.CreateNoteViewModel.Tags">
+            <summary>
+            Comma-separated list of tag names (e.g. "school, linux, project").
+            </summary>
+        </member>
+    </members>
+</doc>

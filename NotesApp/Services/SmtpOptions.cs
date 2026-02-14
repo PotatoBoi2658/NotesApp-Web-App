@@ -1,4 +1,6 @@
-//forgot password email send settings
+/// <summary>
+///forgot password email send settings
+/// <summary>
 namespace NotesApp.Services
 {
     public class SmtpOptions

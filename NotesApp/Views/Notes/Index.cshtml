@@ -20,6 +20,10 @@
 <table class="table table-striped">
     <thead>
         <tr>
+            @if (User.IsInRole("Administrator"))
+            {
+                <th>User</th>
+            }
             <th>Title</th>
             <th>Created</th>
             <th>Tags</th>
@@ -30,6 +34,10 @@
         @foreach (var item in Model)
         {
             <tr>
+                @if (User.IsInRole("Administrator"))
+                {
+                    <td>@item.User?.UserName</td>
+                }
                 <td>@item.Title</td>
                 <td>@item.CreatedAt.ToString("dd MMM yyyy")</td>
                 <td>
