@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>aspnet-NotesApp-485fde6c-b2fa-48a5-b4fc-6a9e9380ddfc</UserSecretsId>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <DocumentationFile>C:\Users\User\Desktop\it_web_project\NotesApp\XML.xml</DocumentationFile>
+    <DocumentationFile>C:\Users\Receb\Desktop\NotesApp\XML.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
